@@ -4,6 +4,9 @@ var context = canvas.getContext('2d');
 canvas.width = 1340;
 canvas.height = 650;
 
+//punkty
+var score = 0;
+
 //tło gry
 var bgImage = new Image();
 bgImage.src = "img/sky.png";

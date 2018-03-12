@@ -1,5 +1,15 @@
 document.body.appendChild(canvas);
 
+var hittest = function (a, b) {
+    if ( (a.x < (b.x + b.w)) &&
+         ((a.x + a.w) > b.x) &&
+         (a.y < (b.y + b.h)) &&    
+         ((a.y + a.h) > b.y) )
+        return true;
+    else
+        return false;
+}
+
 var initEnemies = function(){
     var k = 0;
     for (var j = 0; j < 5; j++){
@@ -24,6 +34,13 @@ var drawEnemies = function() {
                 dropdown = true;
             if (enemies[i].x < 0)
                 dropdown = true;
+            if (hittest(enemies[i], bullet)){
+                enemies[i].visible = false;
+                bullet.visible = false;
+                bullet.x = hero.x + 30;
+                bullet.y = 450;
+                score += 10;
+            }
         }
     }
     if (dropdown){
