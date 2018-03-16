@@ -1,3 +1,12 @@
+//właściwości gry
+var enemySpeed = 3;
+var enemyBullets = 1;
+var bulletSpeed = 20;
+var scrollSpeed = 1;
+var score = 0;
+var life = 1;
+var gameOver = 0;
+
 //utworzenie canvas
 var canvas = document.createElement('canvas');
 var context = canvas.getContext('2d');

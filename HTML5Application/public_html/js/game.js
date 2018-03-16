@@ -1,6 +1,6 @@
 document.body.appendChild(canvas);
 
-var hittest = function (a, b) {
+var hitTest = function (a, b) {
     if ( (a.x < (b.x + b.w)) &&
          ((a.x + a.w) > b.x) &&
          (a.y < (b.y + b.h)) &&    
@@ -34,7 +34,7 @@ var initEnemyBullet = function (k) {
 
 var initEnemiesBullet = function (){
     var k = 0;
-    while (k < enemy_bullets)
+    while (k < enemyBullets)
         initEnemyBullet(k++);
 }
 
@@ -47,12 +47,12 @@ var drawEnemies = function() {
     var dropdown = false;
     for (var i = 0; i < enemies.length; i++){
         if(enemies[i].visible){
-            enemies[i].x += enemy_speed;
+            enemies[i].x += enemySpeed;
             if (enemies[i].x > (1340 - 64))
                 dropdown = true;
             if (enemies[i].x < 0)
                 dropdown = true;
-            if (hittest(enemies[i], bullet)){
+            if (hitTest(enemies[i], bullet)){
                 enemies[i].visible = false;
                 bullet.visible = false;
                 bullet.x = hero.x + 30;
@@ -62,7 +62,7 @@ var drawEnemies = function() {
         }
     }
     if (dropdown){
-        enemy_speed = -enemy_speed;
+        enemySpeed = -enemySpeed;
         for (var i = 0; i < enemies.length; i++)
             enemies[i].y += 20;
     }
@@ -71,7 +71,7 @@ var drawEnemies = function() {
 var drawBullet = function() {
     if (bullet.visible){
         context.drawImage(bullet.image, bullet.x, bullet.y);
-        bullet.y -= bullet_speed;
+        bullet.y -= bulletSpeed;
         if (bullet.y < 0)
             bullet.visible = false;
     }
@@ -80,10 +80,10 @@ var drawBullet = function() {
 var drawEnemyBullets = function (){
     for (var i = 0; i < enemiesBullet.length; i++){
         context.drawImage(enemiesBullet[i].image, enemiesBullet[i].x, enemiesBullet[i].y);
-        enemiesBullet[i].y += bullet_speed;
+        enemiesBullet[i].y += bulletSpeed;
         if (enemiesBullet[i].y > 620)
             initEnemyBullet(i);
-        if (hittest(enemiesBullet[i], hero)){
+        if (hitTest(enemiesBullet[i], hero)){
             initEnemyBullet;
             life--;
         }    
