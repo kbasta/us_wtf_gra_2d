@@ -20,6 +20,24 @@ var initEnemies = function(){
     }
 }
 
+var initEnemyBullet = function (k) {
+    var check = false;
+    while (!check){
+        var enemy = Math.floor(Math.random() * enemies.length);
+        if (enemies[enemy].visible){
+            enemiesBullet[k] = {visible : true, image : bulletImage, x : enemies[enemy].x + 30,
+                                y : enemies[enemy].y + 25, w : 16, h : 16}
+            check = true;
+        }
+    }
+}
+
+var initEnemiesBullet = function (){
+    var k = 0;
+    while (k < enemy_bullets)
+        initEnemyBullet(k++);
+}
+
 var drawEnemies = function() {
     //render enemies
     for (var i = 0; i < enemies.length; i++)
@@ -59,12 +77,28 @@ var drawBullet = function() {
     }
 }
 
+var drawEnemyBullets = function (){
+    for (var i = 0; i < enemiesBullet.length; i++){
+        context.drawImage(enemiesBullet[i].image, enemiesBullet[i].x, enemiesBullet[i].y);
+        enemiesBullet[i].y += bullet_speed;
+        if (enemiesBullet[i].y > 620)
+            initEnemyBullet(i);
+        if (hittest(enemiesBullet[i], hero)){
+            initEnemyBullet;
+            life--;
+        }    
+    }
+    if (life === 0)
+        gameOver = 1;
+}
+
 var render = function (){
     context.drawImage(bgImage, 0, 0);
     if(gameOver === 0){
         context.drawImage(hero.image, hero.x, hero.y);
         drawBullet();
         drawEnemies();
+        drawEnemyBullets();
     }
 }
 

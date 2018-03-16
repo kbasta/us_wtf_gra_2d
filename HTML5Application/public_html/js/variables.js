@@ -26,3 +26,6 @@ var bulletImage = new Image();
 bulletImage.src = "img/bullet.png";
 var bullet = {visible : false, image : bulletImage, 
               x : 0, y : 0, w : 16, h : 20, speed : 30}
+          
+//tablica pocisków rówgów
+var enemiesBullet = [];
