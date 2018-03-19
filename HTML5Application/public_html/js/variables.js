@@ -4,7 +4,7 @@ var enemyBullets = 1;
 var bulletSpeed = 20;
 var scrollSpeed = 1;
 var score = 0;
-var life = 1;
+var life = 3;
 var gameOver = 0;
 
 //utworzenie canvas
@@ -38,3 +38,7 @@ var bullet = {visible : false, image : bulletImage,
           
 //tablica pocisków rówgów
 var enemiesBullet = [];
+
+//tło gry ze scrollem
+var bgScroll = new Image();
+bgScroll.src = "img/map.png";

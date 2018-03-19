@@ -10,6 +10,13 @@ var hitTest = function (a, b) {
         return false;
 }
 
+var areVisibleEnemies = function(){
+    for (var i = 0; i < enemies.length; i++)
+        if (enemies[i].visible)
+            return true;
+    return false;
+}
+
 var initEnemies = function(){
     var k = 0;
     for (var j = 0; j < 5; j++){
@@ -26,7 +33,7 @@ var initEnemyBullet = function (k) {
         var enemy = Math.floor(Math.random() * enemies.length);
         if (enemies[enemy].visible){
             enemiesBullet[k] = {visible : true, image : bulletImage, x : enemies[enemy].x + 30,
-                                y : enemies[enemy].y + 25, w : 16, h : 16}
+                                y : enemies[enemy].y + 32, w : 16, h : 16}
             check = true;
         }
     }
@@ -84,7 +91,7 @@ var drawEnemyBullets = function (){
         if (enemiesBullet[i].y > 620)
             initEnemyBullet(i);
         if (hitTest(enemiesBullet[i], hero)){
-            initEnemyBullet;
+            initEnemyBullet(i);
             life--;
         }    
     }
@@ -92,18 +99,50 @@ var drawEnemyBullets = function (){
         gameOver = 1;
 }
 
+var drawScore = function(){
+    context.fillStyle = "#F0F";
+    context.font = "24px Helvetica";
+    context.textAlign = "left";
+    context.textBaseline = "top";
+    context.fillText("Score: " + score, 5, 5);
+    context.fillText("Life: " + life, 650, 5);
+}
+
 var render = function (){
     context.drawImage(bgImage, 0, 0);
+    
+    // rozmiar mapy  750x12288.
+    //context.drawImage(bgScroll, 0 , 12288 - 500 - scrollSpeed, 750,
+    //                    12288 - scrollSpeed, 0, 0, 750, 12288 - speedScroll);
+    //scrollSpeed++;
+                        
     if(gameOver === 0){
         context.drawImage(hero.image, hero.x, hero.y);
         drawBullet();
-        drawEnemies();
-        drawEnemyBullets();
+        drawScore();
+        if(areVisibleEnemies()){
+            drawEnemies();
+            drawEnemyBullets();
+        } else {
+            context.fillStyle = "#F0F";
+            context.font = "48px Helvetica";
+            context.fillText("Winner", 550, 300);
+        }    
+    } else {
+        context.fillStyle = "#F0F";
+        context.font = "48px Helvetica";
+        context.fillText("Game Over", 550, 300);
     }
 }
 
 var main = function(){   
+    initEnemies();
+    initEnemiesBullet();
+    repeat();
+}
+
+var repeat = function(){
     keysUpdate();
     render();
-    requestAnimationFrame(main);
+    requestAnimationFrame(repeat);
 }
