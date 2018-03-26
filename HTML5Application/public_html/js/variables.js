@@ -36,9 +36,13 @@ bulletImage.src = "img/bullet.png";
 var bullet = {visible : false, image : bulletImage, 
               x : 0, y : 0, w : 16, h : 20, speed : 30}
           
+//pociski wrogów          
+var enemyBulletImage = new Image();
+enemyBulletImage.src = "img/enemyBullet.png";
+          
 //tablica pocisków rówgów
 var enemiesBullet = [];
 
 //tło gry ze scrollem
 var bgScroll = new Image();
-bgScroll.src = "img/map.png";
+bgScroll.src = "img/tlo.png";

@@ -32,7 +32,7 @@ var initEnemyBullet = function (k) {
     while (!check){
         var enemy = Math.floor(Math.random() * enemies.length);
         if (enemies[enemy].visible){
-            enemiesBullet[k] = {visible : true, image : bulletImage, x : enemies[enemy].x + 30,
+            enemiesBullet[k] = {visible : true, image : enemyBulletImage, x : enemies[enemy].x + 30,
                                 y : enemies[enemy].y + 32, w : 16, h : 16}
             check = true;
         }
@@ -109,12 +109,11 @@ var drawScore = function(){
 }
 
 var render = function (){
-    context.drawImage(bgImage, 0, 0);
-    
-    // rozmiar mapy  750x12288.
-    //context.drawImage(bgScroll, 0 , 12288 - 500 - scrollSpeed, 750,
-    //                    12288 - scrollSpeed, 0, 0, 750, 12288 - speedScroll);
-    //scrollSpeed++;
+    //context.drawImage(bgImage, 0, 0);
+ 
+    context.drawImage(bgScroll, 0 , 6700 - 1340 - scrollSpeed, 1340,
+                        6700 - scrollSpeed, 0, 0, 1340, 6700 - scrollSpeed);
+    scrollSpeed++;
                         
     if(gameOver === 0){
         context.drawImage(hero.image, hero.x, hero.y);
